@@ -1,5 +1,5 @@
 "use strict";
-// Lista de productos fija con stock
+//se define un arreglo de objetos con productos
 const productos = [
     { nombre: "Queso en hebras Italiano La Paulina 135 Gr.", precio: 1200, stock: 10, imagen: "img/queso.png", clase: "queso" },
     { nombre: "Cerveza Lata Miller 473 Ml.", precio: 900, stock: 5, imagen: "img/cerveza-rubia.png", clase: "cerveza-rubia" },
@@ -13,9 +13,9 @@ const productos = [
 
 // Función para cargar los productos en la página
 function cargarProductos() {
-    const listaProductos = document.getElementById('product-list');
+    const listaProductos = document.getElementById('product-list');// se declara una constante donde se mostraran los productos
 
-    productos.forEach((producto, index) => {
+    productos.forEach((producto, index) => {// recorre el arreglo de productos y para cada producto
         // Crear el contenedor del producto
         const productoItem = document.createElement('div');
         productoItem.classList.add('product-item', producto.clase);
@@ -50,20 +50,20 @@ function cargarProductos() {
 
 // Función para manejar la compra
 function manejarCompra() {
-    let total = 0;
-    let error = false;
-    const resultado = document.getElementById('resultado');
+    let total = 0; // se inicializa en 0 para almacenar el total de la compra
+    let error = false; // variable para manejar errores
+    const resultado = document.getElementById('resultado');// se obtiene el id en el que se mostrara el resultado de la compra
     resultado.innerHTML = ''; // Limpiar resultados anteriores
 
     productos.forEach((producto, index) => {
-        const cantidad = parseInt(document.getElementById(`cantidad-${index}`).value);
+        const cantidad = parseInt(document.getElementById(`cantidad-${index}`).value);// se obtiene la cantidad ingresada por el usuario
 
         if (cantidad < 0 || cantidad > producto.stock) {
             error = true;
         } else {
             total += cantidad * producto.precio;
         }
-    });
+    });// se verifica si al cantidad es menor que 0 y si supera el stock, entonces da un mensaje de erro, sino prosigue con la funcion
 
     if (error) {
         resultado.innerHTML = '<span id="error">Error: stock agotado, porfavor eliga otra cantidad.</span>';
@@ -77,3 +77,4 @@ document.addEventListener('DOMContentLoaded', cargarProductos);
 
 // Añadir el event listener al botón comprar
 document.getElementById('comprar').addEventListener('click', manejarCompra);
+
